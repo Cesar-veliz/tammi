@@ -10,6 +10,7 @@
   "scripts": {
     "setup": "node setup-database.js",
     "dev": "node start-dev.js",
+    "start": "cd backend && npm start",
     "install:all": "npm install && npm run install:backend && npm run install:frontend",
     "install:backend": "cd backend && npm install",
     "install:frontend": "cd frontend && npm install",
