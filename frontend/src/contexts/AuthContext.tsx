@@ -25,10 +25,19 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // BYPASS: Initializing with mock user directly
+  const [user, setUser] = useState<User | null>({
+    id: 'mock-admin-id',
+    username: 'admin',
+    name: 'Admin User',
+    role: 'ADMIN',
+    email: 'admin@tammi.com'
+  } as User); // Casting to User in case types are strict
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // BYPASS: Disabled token check
+    /*
     // Check if user is logged in on app start
     const token = localStorage.getItem('auth_token');
     const savedUser = localStorage.getItem('user');
@@ -44,12 +53,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
     
     setIsLoading(false);
+    */
   }, []);
 
   const login = async (credentials: LoginRequest): Promise<void> => {
     try {
       const response: AuthResponse = await authAPI.login(credentials);
-      
+
       localStorage.setItem('auth_token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
       setUser(response.user);
@@ -72,7 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const value: AuthContextType = {
     user,
-    isAuthenticated: !!user,
+    isAuthenticated: true, // BYPASS: Always true
     isLoading,
     login,
     logout,

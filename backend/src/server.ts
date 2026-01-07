@@ -9,6 +9,10 @@ import authRoutes from './routes/auth.routes';
 import patientRoutes from './routes/patient.routes';
 import clinicalRecordRoutes from './routes/clinical-record.routes';
 
+// Import middleware
+import { requestLogger } from './middleware/request.middleware';
+import { errorHandler } from './middleware/error.middleware';
+
 // Load environment variables
 dotenv.config();
 
@@ -29,6 +33,7 @@ app.use(cors({
 app.options('*', cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use(requestLogger);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -43,6 +48,9 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api', clinicalRecordRoutes);
+
+// Error handling middleware
+app.use(errorHandler);
 
 // Export app for Firebase Functions (and local testing)
 // export default app;

@@ -14,6 +14,15 @@ export const authenticateToken = async (
   res: Response,
   next: NextFunction
 ) => {
+  // BYPASS: Bypass authentication and inject mock admin user
+  req.user = {
+    userId: 'mock-admin-id',
+    username: 'admin',
+    role: 'ADMIN'
+  };
+  return next();
+
+  /*
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
@@ -34,10 +43,15 @@ export const authenticateToken = async (
       message: 'Invalid or expired token'
     });
   }
+  */
 };
 
 export const requireRole = (roles: ('ADMIN' | 'USER')[]) => {
   return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    // BYPASS: Role check bypassed
+    return next();
+
+    /*
     if (!req.user) {
       return res.status(401).json({
         code: 'AUTH_001',
@@ -53,5 +67,6 @@ export const requireRole = (roles: ('ADMIN' | 'USER')[]) => {
     }
 
     return next();
+    */
   };
 };

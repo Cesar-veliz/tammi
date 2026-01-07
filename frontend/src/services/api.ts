@@ -10,7 +10,7 @@ import {
 } from '../types';
 
 // Determine API URL based on hostname
-const API_BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:3001/api' : '/api';
+const API_BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:3001/api' : 'https://tammi-o09s.onrender.com/api';
 
 // Create axios instance
 const api = axios.create({

@@ -20,6 +20,7 @@ const Login: React.FC = () => {
     try {
       await login(credentials);
     } catch (error: any) {
+      console.error('Login error:', error);
       setError(error.response?.data?.message || 'Error al iniciar sesión');
     } finally {
       setIsLoading(false);
