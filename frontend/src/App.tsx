@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Login from './components/Login';
+import { AuthProvider } from './contexts/AuthContext';
 import Dashboard from './components/Dashboard';
 
+// ProtectedRoute removed for login bypass
+/*
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
 
@@ -23,6 +24,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
   return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
 };
+*/
 
 const AppRoutes: React.FC = () => {
   return (

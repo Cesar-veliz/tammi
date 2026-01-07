@@ -33,7 +33,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     role: 'ADMIN',
     email: 'admin@tammi.com'
   } as User); // Casting to User in case types are strict
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   useEffect(() => {
     // BYPASS: Disabled token check
