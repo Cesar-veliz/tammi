@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:sefXr7TfExlj2TlY@db.sraeiofnjqcbysjwbdth.supabase.co:5432/postgres" // Hardcoded for deployment stability
+  url      = env("DATABASE_URL")
 }
 
 model User {
