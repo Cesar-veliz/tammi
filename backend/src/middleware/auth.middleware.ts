@@ -27,7 +27,7 @@ export const authenticateToken = async (
 
     const decoded = await AuthService.verifyToken(token);
     req.user = decoded;
-    next();
+    return next();
   } catch (error) {
     return res.status(403).json({
       code: 'AUTH_002',
@@ -52,6 +52,6 @@ export const requireRole = (roles: ('ADMIN' | 'USER')[]) => {
       });
     }
 
-    next();
+    return next();
   };
 };

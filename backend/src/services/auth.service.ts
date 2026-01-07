@@ -29,20 +29,23 @@ export class AuthService {
 
     // Generate JWT token
     const token = jwt.sign(
-      { 
-        userId: user.id, 
-        username: user.username, 
-        role: user.role 
+      {
+        userId: user.id,
+        username: user.username,
+        role: user.role
       },
-      this.JWT_SECRET,
-      { expiresIn: this.JWT_EXPIRES_IN }
+      this.JWT_SECRET as jwt.Secret,
+      { expiresIn: this.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'] }
     );
 
     // Return user without password
     const { password: _, ...userWithoutPassword } = user;
 
     return {
-      user: userWithoutPassword,
+      user: {
+        ...userWithoutPassword,
+        role: user.role as 'ADMIN' | 'USER'
+      },
       token
     };
   }
@@ -67,7 +70,7 @@ export class AuthService {
     name: string;
   }) {
     const hashedPassword = await this.hashPassword(userData.password);
-    
+
     return prisma.user.create({
       data: {
         ...userData,

@@ -17,7 +17,7 @@ router.post('/login', async (req: Request, res: Response) => {
     }
 
     const authResponse = await AuthService.login(credentials);
-    res.json(authResponse);
+    return res.json(authResponse);
   } catch (error: any) {
     if (error.message === 'Invalid credentials') {
       return res.status(401).json({
@@ -37,7 +37,7 @@ router.post('/login', async (req: Request, res: Response) => {
 router.post('/logout', (req: Request, res: Response) => {
   // In a stateless JWT system, logout is handled client-side
   // by removing the token from storage
-  res.json({ success: true, message: 'Logged out successfully' });
+  return res.json({ success: true, message: 'Logged out successfully' });
 });
 
 export default router;

@@ -16,7 +16,7 @@ router.get('/', async (req: AuthenticatedRequest, res: Response) => {
     const limit = parseInt(req.query.limit as string) || 10;
 
     const result = await PatientService.searchPatients(query, page, limit);
-    res.json(result);
+    return res.json(result);
   } catch (error: any) {
     res.status(500).json({
       code: 'DB_001',
@@ -30,7 +30,7 @@ router.get('/', async (req: AuthenticatedRequest, res: Response) => {
 router.get('/:id', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const patient = await PatientService.getPatientById(req.params.id);
-    
+
     if (!patient) {
       return res.status(404).json({
         code: 'DB_003',
@@ -38,7 +38,7 @@ router.get('/:id', async (req: AuthenticatedRequest, res: Response) => {
       });
     }
 
-    res.json(patient);
+    return res.json(patient);
   } catch (error: any) {
     res.status(500).json({
       code: 'DB_001',
@@ -53,7 +53,7 @@ router.post('/', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const patientData: CreatePatientRequest = req.body;
     const patient = await PatientService.createPatient(patientData);
-    res.status(201).json(patient);
+    return res.status(201).json(patient);
   } catch (error: any) {
     if (error.message.includes('Missing required fields')) {
       return res.status(400).json({
@@ -89,7 +89,7 @@ router.put('/:id', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const patientData: Partial<CreatePatientRequest> = req.body;
     const patient = await PatientService.updatePatient(req.params.id, patientData);
-    res.json(patient);
+    return res.json(patient);
   } catch (error: any) {
     if (error.message.includes('Invalid RUT')) {
       return res.status(400).json({
@@ -110,7 +110,7 @@ router.put('/:id', async (req: AuthenticatedRequest, res: Response) => {
 router.delete('/:id', requireRole(['ADMIN']), async (req: AuthenticatedRequest, res: Response) => {
   try {
     await PatientService.deletePatient(req.params.id);
-    res.status(204).send();
+    return res.status(204).send();
   } catch (error: any) {
     res.status(500).json({
       code: 'DB_001',

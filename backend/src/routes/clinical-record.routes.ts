@@ -12,7 +12,7 @@ router.use(authenticateToken);
 router.get('/patients/:patientId/clinical-records', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const records = await ClinicalRecordService.getClinicalRecordsByPatient(req.params.patientId);
-    res.json(records);
+    return res.json(records);
   } catch (error: any) {
     res.status(500).json({
       code: 'DB_001',
@@ -31,7 +31,7 @@ router.post('/patients/:patientId/clinical-records', async (req: AuthenticatedRe
       req.user!.userId,
       recordData
     );
-    res.status(201).json(record);
+    return res.status(201).json(record);
   } catch (error: any) {
     if (error.message.includes('Invalid ophthalmic values')) {
       return res.status(400).json({
@@ -52,7 +52,7 @@ router.post('/patients/:patientId/clinical-records', async (req: AuthenticatedRe
 router.get('/clinical-records/:id', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const record = await ClinicalRecordService.getClinicalRecordById(req.params.id);
-    
+
     if (!record) {
       return res.status(404).json({
         code: 'DB_003',
@@ -60,7 +60,7 @@ router.get('/clinical-records/:id', async (req: AuthenticatedRequest, res: Respo
       });
     }
 
-    res.json(record);
+    return res.json(record);
   } catch (error: any) {
     res.status(500).json({
       code: 'DB_001',
@@ -75,7 +75,7 @@ router.put('/clinical-records/:id', async (req: AuthenticatedRequest, res: Respo
   try {
     const recordData: Partial<CreateClinicalRecordRequest> = req.body;
     const record = await ClinicalRecordService.updateClinicalRecord(req.params.id, recordData);
-    res.json(record);
+    return res.json(record);
   } catch (error: any) {
     if (error.message.includes('Invalid ophthalmic values')) {
       return res.status(400).json({

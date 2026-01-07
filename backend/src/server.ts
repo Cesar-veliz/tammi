@@ -44,7 +44,7 @@ app.use('/api/patients', patientRoutes);
 app.use('/api', clinicalRecordRoutes);
 
 // Export app for Firebase Functions (and local testing)
-export default app;
+// export default app;
 
 // Start server
 const server = app.listen(PORT, () => {
