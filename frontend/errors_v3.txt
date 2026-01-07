@@ -1,0 +1,2 @@
+src/services/api.ts(1,38): error TS7016: Could not find a declaration file for module 'axios'. 'C:/Users/HP SERIES PROBBOK/Desktop/tammi/node_modules/axios/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/axios` if it exists or add a new declaration (.d.ts) file containing `declare module 'axios';`

@@ -1,0 +1,68 @@
+:root {
+  /* F1 Palette */
+  --racing-red: #FF1801;
+  --carbon-black: #15151E;
+  --asphalt-gray: #2D2D2D;
+  --track-gray: #38383F;
+  --grid-white: #FFFFFF;
+  --trophy-gold: #FFD700;
+  
+  /* Semantic Colors */
+  --primary: var(--racing-red);
+  --background: #F2F2F2;
+  --card-bg: var(--grid-white);
+  --text-main: var(--carbon-black);
+  --text-muted: #666666;
+  
+  /* Effects */
+  --speed-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --carbon-bg: repeating-linear-gradient(
+    45deg,
+    #222,
+    #222 10px,
+    #262626 10px,
+    #262626 20px
+  );
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--background);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* F1 Style Headers */
+h1, h2, h3 {
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  font-style: italic; /* Speed effect */
+}
+
+/* Buttons */
+button {
+  transition: all 0.2s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  transform: skewX(-10deg); /* F1 dynamic feel */
+}
+
+/* Inputs */
+input, select, textarea {
+  border: 2px solid transparent;
+  background-color: #f8f8f8;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--racing-red);
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(255, 24, 1, 0.1);
+}

@@ -1,0 +1,7 @@
+src/components/Dashboard.tsx(27,28): error TS2339: Property 'totalCount' does not exist on type 'SearchResult<Patient>'.
+src/services/api.ts(1,38): error TS7016: Could not find a declaration file for module 'axios'. 'C:/Users/HP SERIES PROBBOK/Desktop/tammi/node_modules/axios/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/axios` if it exists or add a new declaration (.d.ts) file containing `declare module 'axios';`
+src/services/api.ts(11,34): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/services/api.ts(22,31): error TS7006: Parameter 'config' implicitly has an 'any' type.
+src/services/api.ts(32,4): error TS7006: Parameter 'response' implicitly has an 'any' type.
+src/services/api.ts(33,4): error TS7006: Parameter 'error' implicitly has an 'any' type.

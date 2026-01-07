@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:sefXr7TfExlj2TlY@db.sraeiofnjqcbysjwbdth.supabase.co:5432/postgres" // Hardcoded for deployment stability
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  role      String   @default("USER")
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  clinicalRecords ClinicalRecord[]
+
+  @@map("users")
+}
+
+model Patient {
+  id               String   @id @default(cuid())
+  rut              String   @unique
+  nombres          String
+  apellidos        String
+  fechaNacimiento  DateTime
+  edad             Int
+  telefono         String
+  correo           String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  clinicalRecords ClinicalRecord[]
+
+  @@map("patients")
+}
+
+model MedicalHistory {
+  id        String   @id @default(cuid())
+  embarazo  Boolean  @default(false)
+  lactancia Boolean  @default(false)
+  hta       Boolean  @default(false)
+  dm        Boolean  @default(false)
+  otras     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  clinicalRecord ClinicalRecord?
+
+  @@map("medical_histories")
+}
+
+model OphthalmicExam {
+  id           String   @id @default(cuid())
+  // Ojo Derecho (OD)
+  od_esfera    Float?
+  od_cilindro  Float?
+  od_eje       Int?
+  od_dp        Float?
+  // Ojo Izquierdo (OI)
+  oi_esfera    Float?
+  oi_cilindro  Float?
+  oi_eje       Int?
+  oi_dp        Float?
+  comentarios  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  clinicalRecord ClinicalRecord?
+
+  @@map("ophthalmic_exams")
+}
+
+model ClinicalRecord {
+  id                String   @id @default(cuid())
+  patientId         String
+  medicalHistoryId  String   @unique
+  ophthalmicExamId  String   @unique
+  createdBy         String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  patient         Patient         @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  medicalHistory  MedicalHistory  @relation(fields: [medicalHistoryId], references: [id], onDelete: Cascade)
+  ophthalmicExam  OphthalmicExam  @relation(fields: [ophthalmicExamId], references: [id], onDelete: Cascade)
+  createdByUser   User            @relation(fields: [createdBy], references: [id])
+
+  @@map("clinical_records")
+}
+
