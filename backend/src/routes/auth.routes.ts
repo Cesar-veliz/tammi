@@ -26,9 +26,12 @@ router.post('/login', async (req: Request, res: Response) => {
       });
     }
 
-    res.status(500).json({
+    console.error('Login error:', error);
+    return res.status(500).json({
       code: 'DB_001',
-      message: 'Internal server error'
+      message: 'Internal server error',
+      details: error.message, // Exposed for debugging
+      stack: error.stack
     });
   }
 });
